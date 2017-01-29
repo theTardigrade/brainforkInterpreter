@@ -7,6 +7,11 @@
 #include "bfi.h"
 #include "err.h"
 
+/* static declarations */
+static void readFile(FILE *, char **);
+static size_t getFileSize(FILE *);
+
+
 char *loadFile(const char *filename)
 {
 	struct stat fileStat;

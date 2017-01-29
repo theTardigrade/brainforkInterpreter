@@ -10,8 +10,6 @@
 	#define MIN_OF_THREE(a, b, c) MIN(MIN(a, b), c)
 
 	char *loadFile(const char *filename);
-	static void readFile(FILE *, char **);
-	static size_t getFileSize(FILE *);
 
 	void run(const char *bfString);
 
