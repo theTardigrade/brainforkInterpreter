@@ -20,8 +20,6 @@ void run(const char *bfString)
 	pid_t pid;
 	for ( i = 0; (c = *(bfString + i)) != '\0'; ++i )
 	{
-		bool match = true;
-
 		switch (c)
 		{ /* cells and values wrap-around within respective bounds */
         	case 0x2B /* '+' */:    ( *ptr < 0xFF ) ? ++*ptr : (*ptr = 0); break;
@@ -51,7 +49,7 @@ void run(const char *bfString)
 				if ( *ptr ) /* non-zero value */
 				{
 					nestedJumps = 0;
-					for ( j = i; i >= 0; --j)
+					for ( j = i; j >= 0; --j)
 					{
 						if ( (c = *(bfString + j)) == 0x5D )
 							++nestedJumps;
@@ -69,8 +67,8 @@ void run(const char *bfString)
             	    errExit(errno, "Fork failed");
         	    ( pid ) ? (*ptr = 0) /* parent */ : (*(++ptr) = 1);
     	        break;
- 	       default: /* ignore other characters */
-					match = false;
+			default: /* ignore other characters */
+				/* ergo, do nothing */
     	}
 	}
 
