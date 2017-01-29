@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include <limits.h>
 #include <errno.h>
 
 #include "bfi.h"
