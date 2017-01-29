@@ -13,7 +13,7 @@
 
 void run(const char *bfString)
 {
-	int8_t cells[CELL_COUNT] = { 0 },
+	int8_t cells[CELL_COUNT] = { '\0' },
 		*ptr = &cells[0];
 
 	int32_t i, j, nestedJumps;
@@ -32,34 +32,24 @@ void run(const char *bfString)
         	case 0x5B /* '[' */:
 				if ( !*ptr ) /* zero value */
 				{
-					nestedJumps = 0;
-					for ( j = i; (c = *(bfString + j)) != '\0'; ++j)
+					for ( nestedJumps = 0; (c = *(bfString + i)) != '\0'; ++i)
 					{
 						if ( c == 0x5B )
 							++nestedJumps;
-						else if ( c == 0x5D ) {
-							if ( --nestedJumps == 0 ) {
-								i = j;
-								break;
-							}
-						}
+						else if ( c == 0x5D && --nestedJumps == 0 )
+							break;
 					}
 				}
 				break;
         	case 0x5D /* ']' */:
 				if ( *ptr ) /* non-zero value */
 				{
-					nestedJumps = 0;
-					for ( j = i; j >= 0; --j)
+					for ( nestedJumps = 0; i >= 0; --i )
 					{
-						if ( (c = *(bfString + j)) == 0x5D )
+						if ( (c = *(bfString + i)) == 0x5D )
 							++nestedJumps;
-						else if ( c == 0x5B ) {
-							if ( --nestedJumps == 0 ) {
-								i = j;
-								break;
-							}
-						}
+						else if ( c == 0x5B && --nestedJumps == 0 )
+							break;
 					}
 				}
             	break;
