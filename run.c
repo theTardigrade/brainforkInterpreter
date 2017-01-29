@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <stdbool.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -12,10 +13,10 @@
 
 void run(const char *bfString)
 {
-	unsigned char cells[CELL_COUNT] = { 0 },
+	int8_t cells[CELL_COUNT] = { 0 },
 		*ptr = &cells[0];
 
-	unsigned int i, j, nestedJumps;
+	int32_t i, j, nestedJumps;
 	char c;
 	pid_t pid;
 	for ( i = 0; (c = *(bfString + i)) != '\0'; ++i )
@@ -63,12 +64,12 @@ void run(const char *bfString)
 				}
             	break;
 			case 0x59 /* 'Y' */:
-            if ( (pid = fork()) < 0 )
-            	    errExit(errno, "Fork failed");
-        	    ( pid ) ? (*ptr = 0) /* parent */ : (*(++ptr) = 1);
+				if ( (pid = fork()) < 0 )
+					errExit(errno, "Fork failed");
+				( pid ) ? (*ptr = 0) /* parent */ : (*(++ptr) = 1);
     	        break;
 			default: /* ignore other characters */
-				/* ergo, do nothing */
+				break;
     	}
 	}
 
