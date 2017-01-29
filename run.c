@@ -13,10 +13,10 @@
 
 void run(const char *bfString)
 {
-    int8_t cells[CELL_COUNT] = { '\0' },
+    uint8_t cells[CELL_COUNT] = { '\0' },
         *ptr = &cells[0];
 
-    int32_t i, j, nestedJumps;
+    int32_t i, nestedJumps;
     char c;
     pid_t pid;
     for ( i = 0; (c = *(bfString + i)) != '\0'; ++i )
