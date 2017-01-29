@@ -36,7 +36,7 @@ void run(const char *bfString)
                     {
                         if ( c == 0x5B )
                             ++nestedJumps;
-                        else if ( c == 0x5D && --nestedJumps == 0 )
+                        else if ( c == 0x5D && !--nestedJumps )
                             break;
                     }
                 }
@@ -48,7 +48,7 @@ void run(const char *bfString)
                     {
                         if ( (c = *(bfString + i)) == 0x5D )
                             ++nestedJumps;
-                        else if ( c == 0x5B && --nestedJumps == 0 )
+                        else if ( c == 0x5B && !--nestedJumps )
                             break;
                     }
                 }
