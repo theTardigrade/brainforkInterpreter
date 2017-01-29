@@ -21,4 +21,4 @@ syn:
 	$(CC_CFLAGS) $(CFLAGS_DEV) -fsyntax-only $(INPUT)
 
 clean:
-	$(RM) $(TARGET)
+	$(RM) -v $(TARGET)
