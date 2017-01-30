@@ -22,8 +22,8 @@ void run(const char *bfString)
     {
         switch (c)
         { /* cells and values wrap-around within respective bounds */
-            case 0x2B /* '+' */:    ( *ptr < 0xFF ) ? ++*ptr : (*ptr = 0); break;
-            case 0x2D /* '-' */:    ( *ptr > 0 ) ? --*ptr : (*ptr = 0xFF); break;
+            case 0x2B /* '+' */:    ( *ptr < UINT8_MAX ) ? ++*ptr : (*ptr = 0); break;
+            case 0x2D /* '-' */:    ( *ptr > 0 ) ? --*ptr : (*ptr = UINT8_MAX); break;
             case 0x3E /* '>' */:    ( ptr < cells + CELL_COUNT - 1 ) ? ++ptr : (ptr = cells); break;
             case 0x3C /* '<' */:    ( ptr > cells ) ? --ptr : (ptr = cells + CELL_COUNT - 1); break;
             case 0x2E /* '.' */:    putchar(*ptr); break;
