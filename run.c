@@ -12,7 +12,7 @@
 
 void run(const char *bfString)
 {
-    uint8_t cells[CELL_COUNT] = { '\0' },
+    uint8_t cells[CELL_COUNT] = { 0 },
         *ptr = &cells[0];
 
     int32_t i, nestedJumps;
@@ -62,5 +62,5 @@ void run(const char *bfString)
         }
     }
 
-    printf("\n");
+    putchar('\n');
 }
