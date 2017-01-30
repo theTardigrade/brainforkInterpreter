@@ -18,7 +18,7 @@ void run(const char *bfString)
     int32_t i, nestedJumps;
     char c;
     pid_t pid;
-    for ( i = 0; (c = *(bfString + i)) != '\0'; ++i )
+    for ( i = nestedJumps = 0; (c = *(bfString + i)) != '\0'; ++i )
     {
         switch (c)
         { /* cells and values wrap-around within respective bounds */
@@ -31,25 +31,27 @@ void run(const char *bfString)
             case 0x5B /* '[' */:
                 if ( !*ptr ) /* zero value */
                 {
-                    for ( nestedJumps = 0; (c = *(bfString + i)) != '\0'; ++i)
+                    for ( ; (c = *(bfString + i)) != '\0'; ++i)
                     {
                         if ( c == 0x5B )
                             ++nestedJumps;
                         else if ( c == 0x5D && !--nestedJumps )
                             break;
                     }
+                    goto jumpErrCheck;
                 }
                 break;
             case 0x5D /* ']' */:
                 if ( *ptr ) /* non-zero value */
                 {
-                    for ( nestedJumps = 0; i >= 0; --i )
+                    for ( ; i >= 0; --i )
                     {
                         if ( (c = *(bfString + i)) == 0x5D )
                             ++nestedJumps;
                         else if ( c == 0x5B && !--nestedJumps )
                             break;
                     }
+                    goto jumpErrCheck;
                 }
                 break;
             case 0x59 /* 'Y' */:
@@ -60,6 +62,12 @@ void run(const char *bfString)
             default: /* ignore other characters */
                 break;
         }
+
+        continue;
+
+        jumpErrCheck:
+            if ( nestedJumps )
+                errExit(NO_ERRNO, JUMPS_ERR_MSG);
     }
 
     putchar('\n');

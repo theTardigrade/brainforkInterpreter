@@ -11,6 +11,8 @@
 
 	char *loadFile(const char *filename);
 
+	#define JUMPS_ERR_MSG "Incorrect syntax: there should be an equal number of left and right jump statements."
+
 	void run(const char *bfString);
 
 #endif
