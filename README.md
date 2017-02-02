@@ -13,12 +13,12 @@ make
 
 ## Usage
 
-The `bfi` executable is called with either one of the following two option flagsand its corresponding argument:
+The `bfi` executable is called with either one of the following two option flags (in short-form or long-form) and then its corresponding argument:
 
-| Flag | Argument |
-| :--: | -------- |
-| `-f` | The path to a file containing Brainfork sourcecode. |
-| `-s` | A string containing Brainfork sourcecode. |
+| Short-form Flag | Long-form Flag | Argument |
+| :-------------: | :------------: | -------- |
+| `-f` | `--file` | The path to a file containing Brainfork sourcecode. |
+| `-s` | `--string` | A string containing Brainfork sourcecode. |
 
 
 ## About Brainfork
