@@ -1,48 +1,53 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
 
 #include "bfi.h"
 #include "err.h"
-
-extern int opterr;
-extern char *optarg;
 
 
 int main(int argc, char **argv)
 {
 	char *brainforkCode = NULL;
 
-	int i;
-	for ( i = 2; i < argc && *(argv + i - 1)[0] == '-' && strlen(*(argv + i - 1)) == 2; ++i )
-	{
-		char *argument = *(argv + i);
-		bool brainforkCodeFound = true;
+/*
+	parse and handle command-line flags and arguments
+*/
 
-		switch ( argv[i - 1][1] )
+	int i;
+	for ( i = 2; i <= argc; ++i )
+	{
+		char *flag = *(argv + i - 1);
+
+		if ( flag[0] != '-' || strlen(flag) != 2)
+			continue;
+
+		char *argument = *(argv + i);
+
+		switch ( flag[1] )
 		{
 			case 'f':
-				brainforkCode = loadFile(argument);
+				if ( !brainforkCode )
+					brainforkCode = loadFile(argument);
 				break;
 			case 's':
-				brainforkCode = argument;
+				if ( !brainforkCode )
+					brainforkCode = argument;
 				break;
 			default:
-				brainforkCodeFound = false;
+				errWarn(NO_ERRNO, "Unrecognized flag [-%c] used.", flag[1]);
 		}
-
-		if ( brainforkCodeFound )
-			break;
 	}
 
 	if ( brainforkCode )
 		run(brainforkCode);
 	else
 		errExit(NO_ERRNO, "Usage:\n\n\t%s -f <filename>|-s <string>", *argv);
+
 /*
 	malloc is used if code is loaded from file,
 	but system will automatically reclaim memory
 */
+
 	return EXIT_SUCCESS;
 }
