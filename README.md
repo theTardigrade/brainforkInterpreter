@@ -8,10 +8,18 @@ Use the following commands to download, install and run:
 git clone https://github.com/theTardigrade/brainforkInterpreter.git
 cd brainforkInterpreter/
 make
-./bfi examples/hello.bf
+./bfi -f examples/hello.bf
 ```
 
-The only argument passsed to the `bfi` executable is the brainfork source file itself.
+## Usage
+
+The `bfi` executable is called with either one of the following two option flags, followed by an option argument:
+
+| Flag | Argument |
+| :--: | -------- |
+| `-f` | The path to a Brainfork sourcecode file. |
+| `-s` | A string containing Brainfork sourcecode. |
+
 
 ## About Brainfork
 

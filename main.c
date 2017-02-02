@@ -1,21 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <unistd.h>
 
 #include "bfi.h"
 #include "err.h"
 
+extern int opterr;
+extern char *optarg;
+
 
 int main(int argc, char **argv)
 {
-	char *fileContents;
+	char *brainforkCode = NULL;
 
-	if ( argc != 2 )
-		errExit(NO_ERRNO, "\n\tUsage: %s filename", *argv);
+	opterr = 0;
+	char opt;
+	if ( (opt = getopt(argc, argv, "f:s:")) != -1 )
+	{
+		if ( opt == 'f' )
+			brainforkCode = loadFile(optarg);
+		else if (opt == 's')
+			brainforkCode = optarg;
+	}
 
-	fileContents = loadFile(*(argv + 1));
-
-	run(fileContents);
-	free(fileContents);
-
+	if ( brainforkCode )
+		run(brainforkCode);
+	else
+		errExit(NO_ERRNO, "Usage:\n\n\t%s -f <filename>|-s <string>", *argv);
+/*
+	malloc is used if code is loaded from file,
+	but system will automatically reclaim memory
+*/
 	return EXIT_SUCCESS;
 }

@@ -20,7 +20,7 @@ void run(const char *bfString)
     pid_t pid;
     for ( i = nestedJumps = 0; (c = *(bfString + i)) != '\0'; ++i )
     {
-        switch (c)
+        switch ( c )
         { /* cells and values wrap-around within respective bounds */
             case 0x2B /* '+' */:    ( *ptr < UINT8_MAX ) ? ++*ptr : (*ptr = 0); break;
             case 0x2D /* '-' */:    ( *ptr > 0 ) ? --*ptr : (*ptr = UINT8_MAX); break;
