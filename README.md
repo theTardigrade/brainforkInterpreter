@@ -13,7 +13,7 @@ make
 
 ## Usage
 
-The `bfi` executable is called with either one of the following two option flags, followed by an option argument:
+The `bfi` executable is called with either one of the following two option flagsand its corresponding argument:
 
 | Flag | Argument |
 | :--: | -------- |
