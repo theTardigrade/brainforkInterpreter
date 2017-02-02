@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 	for ( i = 2; i <= argc; ++i )
 	{
 		char *flag = *(argv + i - 1),
-			*longformFlag = flag + 2;
+			*longformFlag = NULL;
 		int flagLen = strlen(flag);
 
 		if ( flag[0] != '-' || flagLen < 2 || (flag[1] != '-' && flagLen != 2) )
@@ -50,6 +50,8 @@ int main(int argc, char **argv)
 				for long-form flags by converting the form of the flag
 				and then decrementing the counter to reparse the edited flag
 */
+				longformFlag = flag + 2;
+
 				if ( !strcmp(longformFlag, "file") || !strcmp(longformFlag, "string") )
 				{
 					flag[1] = longformFlag[0];
