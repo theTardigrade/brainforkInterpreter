@@ -27,12 +27,10 @@ int main(int argc, char **argv)
 		switch ( flag[1] )
 		{
 			case 'f':
-				if ( !brainforkCode )
-					brainforkCode = loadFile(argument);
+				CONDITIONAL_ASSIGN_TO_PTR(brainforkCode, loadFile(argument));
 				break;
 			case 's':
-				if ( !brainforkCode )
-					brainforkCode = argument;
+				CONDITIONAL_ASSIGN_TO_PTR(brainforkCode, argument);
 				break;
 			default:
 				errWarn(NO_ERRNO, "Unrecognized flag [-%c] used.", flag[1]);
