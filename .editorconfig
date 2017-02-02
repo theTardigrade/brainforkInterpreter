@@ -1,0 +1,14 @@
+# http://editorconfig.org
+
+# top-most editorconfig file
+root = true
+
+# UNIX-style newlines
+[*]
+end_of_file = lf
+insert_final_newline = true
+
+[*.c]
+charset = utf-8
+indent_style = tab
+indent_size = 4
