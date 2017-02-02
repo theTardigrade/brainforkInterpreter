@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 	for ( i = 2; i <= argc; ++i )
 	{
 		char *flag = *(argv + i - 1),
-			*longformFlag = NULL;
+			*longformFlag; /* value assigned later if, and only if, necessary */
 		int flagLen = strlen(flag);
 
 		if ( flag[0] != '-' || flagLen < 2 || (flag[1] != '-' && flagLen != 2) )
