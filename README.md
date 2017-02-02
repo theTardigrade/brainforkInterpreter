@@ -15,7 +15,7 @@ make
 
 The `bfi` executable is called with either one of the following two option flags (in short-form or long-form) and then its corresponding argument:
 
-| Short-form Flag | Long-form Flag | Argument |
+| Short-form flag | Long-form flag | Argument |
 | :-------------: | :------------: | -------- |
 | `-f` | `--file` | The path to a file containing Brainfork sourcecode. |
 | `-s` | `--string` | A string containing Brainfork sourcecode. |

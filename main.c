@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 
 		if ( flag[0] != '-' || flagLen < 2 || (flag[1] != '-' && flagLen != 2) )
 		{
-			errWarn(NO_ERRNO, "Unrecognized argument value [%s] found.", flag);
+			errWarn(NO_ERRNO, "Unrecognized argument [%s] found.", flag);
 			continue;
 		}
 
