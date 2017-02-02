@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <unistd.h>
+#include <string.h>
 
 #include "bfi.h"
 #include "err.h"
@@ -14,14 +14,26 @@ int main(int argc, char **argv)
 {
 	char *brainforkCode = NULL;
 
-	opterr = 0;
-	char opt;
-	if ( (opt = getopt(argc, argv, "f:s:")) != -1 )
+	int i;
+	for ( i = 2; i < argc && *(argv + i - 1)[0] == '-' && strlen(*(argv + i - 1)) == 2; ++i )
 	{
-		if ( opt == 'f' )
-			brainforkCode = loadFile(optarg);
-		else if (opt == 's')
-			brainforkCode = optarg;
+		char *argument = *(argv + i);
+		bool brainforkCodeFound = true;
+
+		switch ( argv[i - 1][1] )
+		{
+			case 'f':
+				brainforkCode = loadFile(argument);
+				break;
+			case 's':
+				brainforkCode = argument;
+				break;
+			default:
+				brainforkCodeFound = false;
+		}
+
+		if ( brainforkCodeFound )
+			break;
 	}
 
 	if ( brainforkCode )
