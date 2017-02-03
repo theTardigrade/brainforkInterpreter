@@ -47,10 +47,13 @@ void run(const char *bfString)
                 }
                 break;
             case 0x59 /* 'Y' */:
-                if ( (pid = fork() ) < 0 )
-                    errExit(errno, "Fork failed");
-                ( pid ) ? (*ptr = 0) /* parent */ : (*(++ptr) = 1);
-                break;
+				if ( !globalOptions.legacy )
+				{
+	                if ( (pid = fork() ) < 0 )
+	                    errExit(errno, "Fork failed");
+	                ( pid ) ? (*ptr = 0) /* parent */ : (*(++ptr) = 1);
+				} 
+               break;
             default: /* ignore other characters */
                 break;
         }

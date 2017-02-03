@@ -11,6 +11,11 @@
 	#include <errno.h>
 	#include <unistd.h>
 
+	struct
+	{
+		bool legacy;
+	} globalOptions;
+
 	#define CONDITIONAL_ASSIGN_TO_PTR(ptr, address) (( !(ptr) ) ? ((ptr) = (address)) : 0)
 
 	char *loadFile(const char *filename);

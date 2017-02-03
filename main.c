@@ -40,6 +40,9 @@ int main(int argc, char **argv)
 			case 's':
 				CONDITIONAL_ASSIGN_TO_PTR(brainforkCode, argument);
 				break;
+			case 'l':
+				globalOptions.legacy = true;
+				break;
 			case '-':
 /*
 				utilize short-form flag cases above to perform the logic
@@ -48,7 +51,11 @@ int main(int argc, char **argv)
 */
 				longformFlag = flag + 2;
 
-				if ( !strcmp(longformFlag, "file") || !strcmp(longformFlag, "string") )
+				if (
+					!strcmp(longformFlag, "file") ||
+					!strcmp(longformFlag, "string") ||
+					!strcmp(longformFlag, "legacy")
+				)
 				{
 					flag[1] = longformFlag[0];
 					flag[2] = '\0';

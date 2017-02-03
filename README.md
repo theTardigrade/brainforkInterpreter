@@ -20,6 +20,11 @@ The `bfi` executable is called with either one of the following two option flags
 | `-f` | `--file` | The path to a file containing Brainfork sourcecode. |
 | `-s` | `--string` | A string containing Brainfork sourcecode. |
 
+It can also be called with any combination of the following argument-less option flags:
+
+| Short-form flag | Long-form flag | Result |
+| :-------------: | :------------: | ------ |
+| `-l` | `--legacy` | Interprets only old-style Brainf*ck code (i.e. the character `Y` has no effect). |
 
 ## About Brainfork
 
