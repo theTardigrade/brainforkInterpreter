@@ -11,17 +11,20 @@
 	#include <errno.h>
 	#include <unistd.h>
 
+	#define CONDITIONAL_ASSIGN_TO_PTR(ptr, address) (( !(ptr) ) ? ((ptr) = (address)) : 0)
+
+	void initGlobalOptions();
+
 	typedef struct {
 		bool legacy;
+		int maxFileSize;
 	} Opts;
 	extern Opts globalOptions;
-
-	#define CONDITIONAL_ASSIGN_TO_PTR(ptr, address) (( !(ptr) ) ? ((ptr) = (address)) : 0)
 
 	char *loadFile(const char *filename);
 
 	#define MEGABYTE_IN_BYTES (1 << 20)
-	#define MAX_FILE_SIZE (MEGABYTE_IN_BYTES * 8 + 1) /* 8 MB, including final NUL */
+	#define DEFAULT_MAX_FILE_SIZE (MEGABYTE_IN_BYTES * 8 + 1) /* 8 MB, including final NUL */
 
 	#define MIN(a, b) (( (a) < (b) ) ? (a) : (b))
 	#define MIN_OF_THREE(a, b, c) MIN(MIN(a, b), c)

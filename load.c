@@ -36,9 +36,9 @@ static void readFile(FILE *fp, char **contents)
 	if ( (*contents = malloc(contentsMemSize)) == NULL ) /* char is always one byte, so one per index */
 		errExit(errno, "Memory allocation error");
 
-	while ( contentsSize < MAX_FILE_SIZE && (*(*contents + contentsSize++) = fgetc(fp)) != EOF ) 
+	while ( contentsSize < globalOptions.maxFileSize && (*(*contents + contentsSize++) = fgetc(fp)) != EOF ) 
 		if ( contentsSize >= contentsMemSize ) {
-			contentsMemSize = MIN_OF_THREE(contentsMemSize * 2, fileSize, MAX_FILE_SIZE); /* limited exponential allocation */
+			contentsMemSize = MIN_OF_THREE(contentsMemSize * 2, fileSize, globalOptions.maxFileSize); /* limited exponential allocation */
 			if ( (*contents = realloc(*contents, contentsMemSize)) == NULL )
 				errExit(errno, "Memory reallocation error");
 		}

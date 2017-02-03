@@ -5,7 +5,7 @@ CFLAGS_DEV = -Wall -pedantic -Wextra -Werror \
 			 -g -ggdb3
 CFLAGS_PRO = -DNDEBUG
 
-INPUT = main.c err.c load.c run.c
+INPUT = main.c err.c load.c run.c opts.c
 TARGET = bfi
 INPUT_OUTPUT = -o $(TARGET) $(INPUT)
 

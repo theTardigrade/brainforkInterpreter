@@ -2,13 +2,6 @@
 #include "err.h"
 
 
-Opts globalOptions;
-
-void initGlobalOptions()
-{
-	globalOptions.legacy = false;
-}
-
 int main(int argc, char **argv)
 {
 	char *brainforkCode = NULL;
