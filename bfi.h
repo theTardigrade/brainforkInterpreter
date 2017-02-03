@@ -11,25 +11,28 @@
 	#include <errno.h>
 	#include <unistd.h>
 
-	#define CONDITIONAL_ASSIGN_TO_PTR(ptr, address) (( !(ptr) ) ? ((ptr) = (address)) : 0)
-
-	void initGlobalOptions();
-
 	typedef struct {
 		bool legacy;
 		int maxFileSize;
+		char *sourceCode;
+		char *sourceFilePath;
 	} Opts;
 	extern Opts globalOptions;
 
+	void initGlobalOptions();
+	void loadCommandLineOptions(int argc, char **argv);
+
 	char *loadFile(const char *filename);
+
+	void run(const char *bfString);
+
+	#define CONDITIONAL_ASSIGN_TO_PTR(ptr, address) (( !(ptr) ) ? ((ptr) = (address)) : 0)
 
 	#define MEGABYTE_IN_BYTES (1 << 20)
 	#define DEFAULT_MAX_FILE_SIZE (MEGABYTE_IN_BYTES * 8 + 1) /* 8 MB, including final NUL */
 
 	#define MIN(a, b) (( (a) < (b) ) ? (a) : (b))
 	#define MIN_OF_THREE(a, b, c) MIN(MIN(a, b), c)
-
-	void run(const char *bfString);
 
 	#define CELL_COUNT 30000 /* BF memory table is standardly defined at 3e4 cells */
 
