@@ -1,9 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-#include <errno.h> /* for "program_invocation_short_name", not directly for "errno" */
-
 #include "err.h"
 
 /* static declarations */

@@ -1,6 +1,12 @@
 #ifndef ERR_H
 #define ERR_H
 
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <stdarg.h>
+	#include <string.h>
+	#include <errno.h> /* for "program_invocation_short_name", not directly for "errno" */
+
 	#define NO_ERRNO 0
 
 	#define CALL_VERROR(errnum, msg, lastArg) { \

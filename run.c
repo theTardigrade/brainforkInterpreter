@@ -1,11 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <errno.h>
-
 #include "bfi.h"
 #include "err.h"
 

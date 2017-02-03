@@ -1,6 +1,16 @@
 #ifndef BFI_H
 #define BFI_H
 
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <stdbool.h>
+	#include <stdint.h>
+	#include <string.h>
+	#include <sys/types.h>
+	#include <sys/stat.h>
+	#include <errno.h>
+	#include <unistd.h>
+
 	#define CONDITIONAL_ASSIGN_TO_PTR(ptr, address) (( !(ptr) ) ? ((ptr) = (address)) : 0)
 
 	char *loadFile(const char *filename);
