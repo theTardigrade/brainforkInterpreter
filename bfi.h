@@ -11,10 +11,10 @@
 	#include <errno.h>
 	#include <unistd.h>
 
-	struct
-	{
+	typedef struct {
 		bool legacy;
-	} globalOptions;
+	} Opts;
+	extern Opts globalOptions;
 
 	#define CONDITIONAL_ASSIGN_TO_PTR(ptr, address) (( !(ptr) ) ? ((ptr) = (address)) : 0)
 
