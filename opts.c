@@ -25,7 +25,8 @@ void loadCommandLineOptions(int argc, char **argv)
     int i;
     for ( i = 2; i <= argc; ++i )
     {
-        char *flag = *(argv + i - 1);
+        bool usedArgument = false;
+        char *flag = *(argv + i - 1), *argument;
         int flagLen = strlen(flag);
 
         if ( flag[0] != '-' || flagLen < 2 )
@@ -41,8 +42,7 @@ void loadCommandLineOptions(int argc, char **argv)
         is expected)
 */
 
-        char *argument = *(argv + i++);
-        bool usedArgument = false;
+        argument = *(argv + i++);
 
         if ( flag[1] == '-' )
         {
