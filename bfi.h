@@ -19,8 +19,23 @@
 	} Opts;
 	extern Opts globalOptions;
 
+	typedef void (*CmdLineOptHandler)(char *argument);
+	typedef struct {
+		char *longform;
+		char shortform;
+		bool expectsArgument;
+		CmdLineOptHandler function;
+	} CmdLineOpt;
+	typedef CmdLineOpt CmdLineOpts[16];
+	extern CmdLineOpts recognizedCommandLineOptions;
+
 	void initGlobalOptions();
 	void loadCommandLineOptions(int argc, char **argv);
+	bool loadLongformCommandLineOption(char *option, char *argument);
+	bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag);
+	void handleLegacyOption(char *argument);
+	void handleFileOption(char *argument);
+	void handleStringOption(char *argument);
 
 	char *loadFile(const char *filename);
 
