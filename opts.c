@@ -111,7 +111,7 @@ bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag)
     return recognizedOption.expectsArgument;
 }
 
-void handleLegacyOption(char *argument)
+void handleLegacyOption(__attribute__((unused)) char *argument)
 {
     globalOptions.legacy = true;
 }
