@@ -26,7 +26,7 @@
 		bool expectsArgument;
 		CmdLineOptHandler function;
 	} CmdLineOpt;
-	typedef CmdLineOpt CmdLineOpts[16];
+	typedef CmdLineOpt CmdLineOpts[3];
 	extern CmdLineOpts recognizedCommandLineOptions;
 
 	void initGlobalOptions();
