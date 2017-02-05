@@ -27,7 +27,7 @@ It can also be called with any combination of the following argument-less option
 | `-l` | `--legacy` | Interprets only old-style Brainf*ck code (i.e. the character `Y` has no effect). |
 | `-b` | `--byte-rollover` | If the value of the byte at the data pointer is 255, the `+` operator will cause it to rollover back to 0. Likewise, if the value is 0, the `-` operator will cause it to rollover to 255. |
 | `-p` | `--pointer-rollover` | If the data pointer is at the last memory cell, the `>` operator will cause it to rollover back to the first. Likewise, if it is at the first, the `<` operator will cause it to rollover to the last. |
-| `-r | `--rollover` | This is equivalent to both `--byte-rollover` and `--pointer-rollover` being set at once. |
+| `-r` | `--rollover` | This is equivalent to both the `--byte-rollover` and `--pointer-rollover` options being set at once. |
 
 ## About Brainfork
 
