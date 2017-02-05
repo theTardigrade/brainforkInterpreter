@@ -13,6 +13,8 @@
 
 	typedef struct {
 		bool legacy;
+		bool pointerRollover;
+		bool byteRollover;
 		int maxFileSize;
 		char *sourceCode;
 		char *sourceFilePath;
@@ -26,16 +28,19 @@
 		bool expectsArgument;
 		CmdLineOptHandler function;
 	} CmdLineOpt;
-	typedef CmdLineOpt CmdLineOpts[3];
+	typedef CmdLineOpt CmdLineOpts[6];
 	extern CmdLineOpts recognizedCommandLineOptions;
 
 	void initGlobalOptions();
 	void loadCommandLineOptions(int argc, char **argv);
 	bool loadLongformCommandLineOption(char *option, char *argument);
 	bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag);
-	void handleLegacyOption(char *argument);
 	void handleFileOption(char *argument);
 	void handleStringOption(char *argument);
+	void handleLegacyOption(__attribute__((unused)) char *argument);
+	void handlePointerRolloverOption(__attribute__((unused)) char *argument);
+	void handleByteRolloverOption(__attribute__((unused)) char *argument);
+	void handleRolloverOption(__attribute__((unused)) char *argument);
 
 	char *loadFile(const char *filename);
 

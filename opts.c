@@ -12,12 +12,16 @@ void initGlobalOptions()
 	o->maxFileSize = DEFAULT_MAX_FILE_SIZE;
 	o->sourceCode = NULL;
 	o->sourceFilePath = NULL;
+	o->pointerRollover = o->byteRollover = false;
 }
 
 CmdLineOpts recognizedCommandLineOptions = {
-	{ "legacy", 'l', false, handleLegacyOption },
 	{ "file", 'f', true, handleFileOption },
-	{ "string", 's', true, handleStringOption }
+	{ "string", 's', true, handleStringOption },
+	{ "legacy", 'l', false, handleLegacyOption },
+	{ "pointer-rollover", 'p', false, handlePointerRolloverOption },
+	{ "byte-rollover", 'b', false, handleByteRolloverOption },
+	{ "rollover", 'r', false, handleRolloverOption }
 };
 
 void loadCommandLineOptions(int argc, char **argv)
@@ -115,11 +119,6 @@ bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag)
 	return recognizedOption.expectsArgument;
 }
 
-void handleLegacyOption(__attribute__((unused)) char *argument)
-{
-	globalOptions.legacy = true;
-}
-
 void handleFileOption(char *argument)
 {
 	globalOptions.sourceFilePath = argument;
@@ -128,4 +127,24 @@ void handleFileOption(char *argument)
 void handleStringOption(char *argument)
 {
 	globalOptions.sourceCode = argument;
+}
+
+void handleLegacyOption(__attribute__((unused)) char *argument)
+{
+	globalOptions.legacy = true;
+}
+
+void handlePointerRolloverOption(__attribute__((unused)) char *argument)
+{
+	globalOptions.pointerRollover = true;
+}
+
+void handleByteRolloverOption(__attribute__((unused)) char *argument)
+{
+	globalOptions.byteRollover = true;
+}
+
+void handleRolloverOption(__attribute__((unused)) char *argument)
+{
+	globalOptions.pointerRollover = globalOptions.byteRollover = true;
 }
