@@ -21,16 +21,6 @@
 	} Opts;
 	extern Opts globalOptions;
 
-	typedef void (*CmdLineOptHandler)(char *argument);
-	typedef struct {
-		char *longform;
-		char shortform;
-		bool expectsArgument;
-		CmdLineOptHandler function;
-	} CmdLineOpt;
-	typedef CmdLineOpt CmdLineOpts[6];
-	extern CmdLineOpts recognizedCommandLineOptions;
-
 	void initGlobalOptions();
 	void loadCommandLineOptions(int argc, char **argv);
 	bool loadLongformCommandLineOption(char *option, char *argument);

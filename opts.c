@@ -15,6 +15,15 @@ void initGlobalOptions()
 	o->pointerRollover = o->byteRollover = false;
 }
 
+typedef void (*CmdLineOptHandler)(char *argument);
+typedef struct {
+	char *longform;
+	char shortform;
+	bool expectsArgument;
+	CmdLineOptHandler function;
+} CmdLineOpt;
+typedef CmdLineOpt CmdLineOpts[6];
+
 CmdLineOpts recognizedCommandLineOptions = {
 	{ "file", 'f', true, handleFileOption },
 	{ "string", 's', true, handleStringOption },
