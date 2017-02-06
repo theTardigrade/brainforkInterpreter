@@ -19,9 +19,9 @@ void errWarn(int errnum, const char *msg, ...)
 
 static void verror(int errnum, const char *fmt, va_list argptr)
 {
-	fprintf(stderr, "%s: ", program_invocation_short_name);
+	fprintf(stderr, MAGENTA_COL_CODE "%s: ", program_invocation_short_name);
 	vfprintf(stderr, fmt, argptr);
 	if ( errnum != NO_ERRNO )
 		fprintf(stderr, ": %s", strerror(errnum));
-	fprintf(stderr, "\n");
+	fprintf(stderr, RESET_COL_CODE "\n");
 }
