@@ -38,12 +38,12 @@ void loadCommandLineOptions(int argc, char **argv)
 	int i;
 	for ( i = 2; i <= argc; ++i )
 	{
-		char *flag = *(argv + i - 1);
-		int flagLen = strlen(flag);
+		char *opts = *(argv + i - 1);
+		int optsLen = strlen(opts);
 
-		if ( flag[0] != '-' || flagLen < 2 || (flag[1] == '-' && flag[2] == '\0') )
+		if ( opts[0] != '-' || optsLen < 2 || (opts[1] == '-' && optsLen == 2) )
 		{
-			errWarn(NO_ERRNO, "Unrecognized argument [%s] found.", flag);
+			errWarn(NO_ERRNO, "Unrecognized argument [%s] found.", opts);
 			continue;
 		}
 
@@ -55,21 +55,21 @@ void loadCommandLineOptions(int argc, char **argv)
 */
 
 		{
-			char *argument = *(argv + i++);
-			bool usedArgument = false;
+			char *optArg = *(argv + i++);
+			bool usedOptArg = false;
 
-			if ( flag[1] == '-' )
+			if ( opts[1] == '-' )
 			{
-				usedArgument = loadLongformCommandLineOption(flag + 2, argument);
+				usedOptArg = loadLongformCommandLineOption(opts + 2, optArg);
 			}
 			else
 			{
 				int j;
-				for ( j = 1; j < flagLen; ++j )
-					usedArgument = loadShortformCommandLineOption(flag[j], argument, !(flagLen - j - 1));
+				for ( j = 1; j < optsLen; ++j )
+					usedOptArg = loadShortformCommandLineOption(opts[j], optArg, !(optsLen - j - 1));
 			}
 
-			if ( !usedArgument )
+			if ( !usedOptArg )
 				--i;
 		}
 	}
@@ -115,7 +115,7 @@ bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag)
 
 	if ( !foundRecognizedOption )
 	{
-		errWarn(NO_ERRNO, "Unrecognized flag [-%c] found.", option);
+		errWarn(NO_ERRNO, "Unrecognized option [-%c] found.", option);
 		return false;
 	}
 
@@ -123,7 +123,7 @@ bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag)
 		recognizedOption.function(argument);
 
 	if ( recognizedOption.expectsArgument && !lastFlag )
-		errWarn(NO_ERRNO, "Flag [-%c] should be immediately followed by an argument value.", option);
+		errWarn(NO_ERRNO, "Option [-%c] should be immediately followed by an argument value.", option);
 
 	return recognizedOption.expectsArgument;
 }
