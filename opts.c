@@ -41,7 +41,7 @@ void loadCommandLineOptions(int argc, char **argv)
 		char *flag = *(argv + i - 1);
 		int flagLen = strlen(flag);
 
-		if ( flag[0] != '-' || flagLen < 2 )
+		if ( flag[0] != '-' || flagLen < 2 || (flag[1] == '-' && flag[2] == '\0') )
 		{
 			errWarn(NO_ERRNO, "Unrecognized argument [%s] found.", flag);
 			continue;
