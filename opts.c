@@ -41,6 +41,27 @@ int compareCommandLineOptionsByLongform(const void *p1, const void *p2)
 	return strcmp(s1, s2);
 }
 
+void sortRecognizedCommandLineOptions(int (*comparator)(const void *, const void*))
+{
+	qsort(
+		recognizedCommandLineOptions,
+		sizeof(recognizedCommandLineOptions) / sizeof(*recognizedCommandLineOptions),
+		sizeof(*recognizedCommandLineOptions),
+		comparator
+	);
+}
+
+CmdLineOpt *findRecognizedCommandLineOption(const void *key, int (*comparator)(const void *, const void *))
+{
+	return (CmdLineOpt *) bsearch(
+		key,
+		recognizedCommandLineOptions,
+		sizeof(recognizedCommandLineOptions) / sizeof(*recognizedCommandLineOptions),
+		sizeof(*recognizedCommandLineOptions),
+		comparator
+    );
+}
+
 void loadCommandLineOptions(int argc, char **argv)
 {
 	int i;
@@ -50,12 +71,7 @@ void loadCommandLineOptions(int argc, char **argv)
 	can later be used to find long-form options
 */
 
-	qsort(
-		recognizedCommandLineOptions,
-		sizeof(recognizedCommandLineOptions) / sizeof(*recognizedCommandLineOptions),
-		sizeof(*recognizedCommandLineOptions),
-		compareCommandLineOptionsByLongform
-	);
+	sortRecognizedCommandLineOptions(compareCommandLineOptionsByLongform);
 
 	for ( i = 2; i <= argc; ++i )
 	{
@@ -98,13 +114,7 @@ void loadCommandLineOptions(int argc, char **argv)
 
 bool loadLongformCommandLineOption(char *option, char *argument)
 {
-	CmdLineOpt *recognizedOption = (CmdLineOpt *) bsearch(
-		&option,
-		recognizedCommandLineOptions,
-		sizeof(recognizedCommandLineOptions) / sizeof(*recognizedCommandLineOptions),
-		sizeof(*recognizedCommandLineOptions),
-		compareCommandLineOptionsByLongform
-	);
+	CmdLineOpt *recognizedOption = findRecognizedCommandLineOption(&option, compareCommandLineOptionsByLongform);
 
 	if ( recognizedOption == NULL )
 	{
