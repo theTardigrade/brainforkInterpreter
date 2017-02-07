@@ -17,17 +17,17 @@ The `bfi` executable is called with either one of the following two option flags
 
 | Short-form flag | Long-form flag | Argument |
 | :-------------: | :------------: | -------- |
-| `-f` | `--file` | The path to a file containing Brainfork sourcecode. |
-| `-s` | `--string` | A string containing Brainfork sourcecode. |
+| `-f` | <pre>--file</pre> | The path to a file containing Brainfork sourcecode. |
+| `-s` | <pre>--string</pre> | A string containing Brainfork sourcecode. |
 
 It can also be called with any combination of the following argument-less option flags:
 
 | Short-form flag | Long-form flag | Result |
 | :-------------: | :------------: | ------ |
-| `-l` | `--legacy` | Interprets only old-style Brainf*ck code (i.e. the character `Y` has no effect). |
-| `-b` | `--byte-rollover` | If the value of the byte at the data pointer is 255, the `+` operator will cause it to rollover back to 0. Likewise, if the value is 0, the `-` operator will cause it to rollover to 255. |
-| `-p` | `--pointer-rollover` | If the data pointer is at the last memory cell, the `>` operator will cause it to rollover back to the first. Likewise, if it is at the first, the `<` operator will cause it to rollover to the last. |
-| `-r` | `--rollover` | This is equivalent to both the `--byte-rollover` and `--pointer-rollover` options being set at once. |
+| `-l` | <pre>--legacy</pre> | Interprets only old-style Brainf*ck code (i.e. the character `Y` has no effect). |
+| `-b` | <pre>--byte-rollover</pre> | If the value of the byte at the data pointer is 255, the `+` operator will cause it to rollover back to 0. Likewise, if the value is 0, the `-` operator will cause it to rollover to 255. |
+| `-p` | <pre>--pointer-rollover</pre> | If the data pointer is at the last memory cell, the `>` operator will cause it to rollover back to the first. Likewise, if it is at the first, the `<` operator will cause it to rollover to the last. |
+| `-r` | <pre>--rollover</pre> | This is equivalent to both the `--byte-rollover` and `--pointer-rollover` options being set at once. |
 
 ## About Brainfork
 
