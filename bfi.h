@@ -22,7 +22,7 @@
 	extern Opts globalOptions;
 
 	void initGlobalOptions(void);
-	void validateGlobalOptions(void);
+	void validateGlobalOptions(char **argv);
 	void loadCommandLineOptions(int argc, char **argv);
 	bool loadLongformCommandLineOption(char *option, char *argument);
 	bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag);

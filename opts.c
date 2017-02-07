@@ -111,7 +111,7 @@ void loadCommandLineOptions(int argc, char **argv)
 		}
 	}
 
-	validateGlobalOptions();
+	validateGlobalOptions(argv);
 }
 
 bool loadLongformCommandLineOption(char *option, char *argument)
@@ -156,8 +156,9 @@ bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag)
 	return recognizedOption->expectsArgument;
 }
 
-void validateGlobalOptions()
+void validateGlobalOptions(char **argv)
 {
+	static char *exampleInputs = "(e.g. string, file)";
 	Opts *o = &globalOptions;
 	int inputs = 0;
 
@@ -168,7 +169,9 @@ void validateGlobalOptions()
 		++inputs;
 
 	if (inputs > 1)
-		errExit(NO_ERRNO, "Only one input source (e.g. string, file) allowed but multiple detected.");
+		errExit(NO_ERRNO, "Only one input source %s allowed but multiple detected.", exampleInputs);
+	else if (inputs < 1)
+		errExit(NO_ERRNO, "No input source %s detected.", exampleInputs, *argv);
 }
 
 void handleFileOption(char *argument)
