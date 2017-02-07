@@ -33,9 +33,30 @@ CmdLineOpts recognizedCommandLineOptions = {
 	{ "rollover", 'r', false, handleRolloverOption }
 };
 
+int compareCommandLineOptionsByLongform(const void *p1, const void *p2)
+{
+	char *s1 = ((const CmdLineOpt *) p1)->longform;
+	char *s2 = ((const CmdLineOpt *) p2)->longform;
+
+	return strcmp(s1, s2);
+}
+
 void loadCommandLineOptions(int argc, char **argv)
 {
 	int i;
+
+/*
+	sort the recognized command-line options below so that binary search
+	can later be implemented to find long-form options
+*/
+
+	qsort(
+		recognizedCommandLineOptions,
+		sizeof(recognizedCommandLineOptions) / sizeof(*recognizedCommandLineOptions),
+		sizeof(*recognizedCommandLineOptions),
+		compareCommandLineOptionsByLongform
+	);
+
 	for ( i = 2; i <= argc; ++i )
 	{
 		char *opts = *(argv + i - 1);
@@ -77,27 +98,24 @@ void loadCommandLineOptions(int argc, char **argv)
 
 bool loadLongformCommandLineOption(char *option, char *argument)
 {
-	CmdLineOpt recognizedOption;
-	bool foundRecognizedOption = false;
-	int i, l = sizeof(recognizedCommandLineOptions) / sizeof(recognizedCommandLineOptions[0]);
-	for ( i = 0; i < l; ++i )
-		if ( recognizedCommandLineOptions[i].longform && !strcmp(recognizedCommandLineOptions[i].longform, option) )
-		{
-			recognizedOption = recognizedCommandLineOptions[i];
-			foundRecognizedOption = true;
-			break;
-		}
+	CmdLineOpt *recognizedOption = (CmdLineOpt *) bsearch(
+		&option,
+		recognizedCommandLineOptions,
+		sizeof(recognizedCommandLineOptions) / sizeof(*recognizedCommandLineOptions),
+		sizeof(*recognizedCommandLineOptions),
+		compareCommandLineOptionsByLongform
+	);
 
-	if ( !foundRecognizedOption )
+	if ( recognizedOption == NULL )
 	{
 		errWarn(NO_ERRNO, "Unrecognized option [--%s] found.", option);
 		return false;
 	}
 
-	if ( recognizedOption.function )
-		recognizedOption.function(argument);
+	if ( recognizedOption->function )
+		recognizedOption->function(argument);
 
-	return recognizedOption.expectsArgument;
+	return recognizedOption->expectsArgument;
 }
 
 bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag)
