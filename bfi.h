@@ -21,7 +21,8 @@
 	} Opts;
 	extern Opts globalOptions;
 
-	void initGlobalOptions();
+	void initGlobalOptions(void);
+	void validateGlobalOptions(void);
 	void loadCommandLineOptions(int argc, char **argv);
 	bool loadLongformCommandLineOption(char *option, char *argument);
 	bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag);

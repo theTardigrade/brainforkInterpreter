@@ -110,6 +110,8 @@ void loadCommandLineOptions(int argc, char **argv)
 				--i;
 		}
 	}
+
+	validateGlobalOptions();
 }
 
 bool loadLongformCommandLineOption(char *option, char *argument)
@@ -152,6 +154,21 @@ bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag)
 		errWarn(NO_ERRNO, "Option [-%c] should be immediately followed by an argument value.", option);
 
 	return recognizedOption->expectsArgument;
+}
+
+void validateGlobalOptions()
+{
+	Opts *o = &globalOptions;
+	int inputs = 0;
+
+	if (o->sourceCode)
+		++inputs;
+
+	if (o->sourceFilePath)
+		++inputs;
+
+	if (inputs > 1)
+		errExit(NO_ERRNO, "Only one input source (e.g. string, file) allowed but multiple detected.");
 }
 
 void handleFileOption(char *argument)
