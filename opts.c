@@ -47,7 +47,7 @@ void loadCommandLineOptions(int argc, char **argv)
 
 /*
 	sort the recognized command-line options below so that binary search
-	can later be implemented to find long-form options
+	can later be used to find long-form options
 */
 
 	qsort(
@@ -120,30 +120,28 @@ bool loadLongformCommandLineOption(char *option, char *argument)
 
 bool loadShortformCommandLineOption(char option, char *argument, bool lastFlag)
 {
-	CmdLineOpt recognizedOption;
-	bool foundRecognizedOption = false;
+	CmdLineOpt *recognizedOption = NULL;
 	int i, l = sizeof(recognizedCommandLineOptions) / sizeof(recognizedCommandLineOptions[0]);
 	for ( i = 0; i < l; ++i )
 		if ( recognizedCommandLineOptions[i].shortform && recognizedCommandLineOptions[i].shortform == option )
 		{
-			recognizedOption = recognizedCommandLineOptions[i];
-			foundRecognizedOption = true;
+			recognizedOption = &recognizedCommandLineOptions[i];
 			break;
 		}
 
-	if ( !foundRecognizedOption )
+	if ( recognizedOption == NULL )
 	{
 		errWarn(NO_ERRNO, "Unrecognized option [-%c] found.", option);
 		return false;
 	}
 
-	if ( recognizedOption.function && (!recognizedOption.expectsArgument || lastFlag) )
-		recognizedOption.function(argument);
+	if ( recognizedOption->function && (!recognizedOption->expectsArgument || lastFlag) )
+		recognizedOption->function(argument);
 
-	if ( recognizedOption.expectsArgument && !lastFlag )
+	if ( recognizedOption->expectsArgument && !lastFlag )
 		errWarn(NO_ERRNO, "Option [-%c] should be immediately followed by an argument value.", option);
 
-	return recognizedOption.expectsArgument;
+	return recognizedOption->expectsArgument;
 }
 
 void handleFileOption(char *argument)
