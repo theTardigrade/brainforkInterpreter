@@ -2,7 +2,7 @@
 
 ## Support
 
-__Please consider donating at PayPal:__ [https://www.paypal.me/jismithpp](https://www.paypal.me/jismithpp)
+Please consider donating at PayPal: [https://www.paypal.me/jismithpp](https://www.paypal.me/jismithpp)
 
 ## Installation
 
