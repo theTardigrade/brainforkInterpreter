@@ -1,5 +1,9 @@
 # brainforkInterpreter
 
+## Support
+
+__Please consider donating at PayPal:__ [https://www.paypal.me/jismithpp](https://www.paypal.me/jismithpp)
+
 ## Installation
 
 Use the following commands to download, install and run:
